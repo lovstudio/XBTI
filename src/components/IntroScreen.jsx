@@ -2,18 +2,18 @@ export default function IntroScreen({ onStart }) {
   return (
     <section className="screen active">
       <div className="hero card hero-minimal">
-        <h1>MBTI已经过时，SBTI来了。</h1>
+        <div className="eyebrow">NBTI · 牛逼人格测试</div>
+        <h1>你有多牛逼？</h1>
+        <p className="hero-sub">
+          30 道题 · 20 种牛逼人格 · 15 维度扫描<br />
+          找到属于你的那种牛逼
+        </p>
         <div className="hero-actions hero-actions-single">
           <button className="btn-primary" onClick={onStart}>开始测试</button>
         </div>
-        <div style={{ paddingTop: '2rem', display: 'flex', flexDirection: 'column' }}>
-          <span>
-            原作者：
-            <a href="https://space.bilibili.com/417038183">B站@蛆肉儿串儿</a>
-          </span>
-          <span>托管：Cloudflare (免费)</span>
-          <span>域名：Spaceship (自费)</span>
-        </div>
+        <p className="hero-footer">
+          基于 SBTI 算法改造 · 纯娱乐 · 别太当真
+        </p>
       </div>
     </section>
   );
