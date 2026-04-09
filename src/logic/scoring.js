@@ -51,22 +51,22 @@ export function computeResult(answers) {
   const drunkTriggered = answers[DRUNK_TRIGGER_QUESTION_ID] === 2;
 
   let finalType;
-  let modeKicker = '你的牛逼人格';
+  let modeKicker = '你的主类型';
   let badge = `匹配度 ${bestNormal.similarity}% · 精准命中 ${bestNormal.exact}/15 维`;
-  let sub = '维度命中度较高，当前结果可视为你的第一牛逼画像。';
+  let sub = '维度命中度较高，当前结果可视为你的第一人格画像。';
   let special = false;
 
   if (drunkTriggered) {
-    finalType = TYPE_LIBRARY['DRUNK-NB'];
+    finalType = TYPE_LIBRARY.DRUNK;
     modeKicker = '隐藏人格已激活';
     badge = '匹配度 100% · 酒精异常因子已接管';
-    sub = '乙醇亲和性过强，系统已直接跳过常规人格审判，授予你「醉仙」称号。';
+    sub = '乙醇亲和性过强，系统已直接跳过常规人格审判。';
     special = true;
   } else if (bestNormal.similarity < 60) {
-    finalType = TYPE_LIBRARY.NB404;
+    finalType = TYPE_LIBRARY.HHHH;
     modeKicker = '系统强制兜底';
     badge = `标准人格库最高匹配仅 ${bestNormal.similarity}%`;
-    sub = '你的牛逼超出了算法的理解范围，系统已强制分配 NB404。';
+    sub = '标准人格库对你的脑回路集体罢工了，于是系统把你强制分配给了 HHHH。';
     special = true;
   } else {
     finalType = bestNormal;
