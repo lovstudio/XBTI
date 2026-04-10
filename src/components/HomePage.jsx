@@ -16,32 +16,29 @@ export default function HomePage({ cases, navigate }) {
       <div className="case-list">
         {cases.map(c => {
           const allTypes = Object.values(c.TYPE_LIBRARY);
+          const typesWithImg = allTypes.filter(t => c.TYPE_IMAGES[t.code]);
           return (
-            <div className="case-card card" key={c.meta.id}>
-              <div className="case-header">
-                <div>
-                  <h2 className="case-name">{c.meta.name}</h2>
-                  <p className="case-desc">{c.meta.desc} · by <a href={c.meta.authorUrl}>{c.meta.author}</a></p>
-                </div>
-                <button
-                  className="btn-primary"
-                  onClick={() => navigate('/c/' + c.meta.id)}
-                >
-                  开始测试
-                </button>
+            <div
+              className="case-poster"
+              key={c.meta.id}
+              onClick={() => navigate('/c/' + c.meta.id)}
+            >
+              <div className="poster-mosaic">
+                {typesWithImg.map(t => (
+                  <img
+                    key={t.code}
+                    className="poster-thumb"
+                    src={c.TYPE_IMAGES[t.code]}
+                    alt={t.code}
+                    loading="lazy"
+                  />
+                ))}
               </div>
-              <div className="marquee">
-                <div className="marquee-track">
-                  {[...allTypes, ...allTypes].map((t, i) => (
-                    <div className="gallery-card" key={`${t.code}-${i}`}>
-                      {c.TYPE_IMAGES[t.code] && (
-                        <img className="gallery-img" src={c.TYPE_IMAGES[t.code]} alt={t.code} loading="lazy" />
-                      )}
-                      <div className="gallery-code">{t.code}</div>
-                      <div className="gallery-cn">{t.cn}</div>
-                    </div>
-                  ))}
-                </div>
+              <div className="poster-overlay">
+                <h2 className="poster-title">{c.meta.name}</h2>
+                <p className="poster-desc">{c.meta.desc}</p>
+                <p className="poster-meta">by <a href={c.meta.authorUrl} onClick={e => e.stopPropagation()}>{c.meta.author}</a> · {allTypes.length} 种人格</p>
+                <span className="poster-cta">开始测试 →</span>
               </div>
             </div>
           );
