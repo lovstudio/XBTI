@@ -1,9 +1,8 @@
 import { useState, useMemo } from 'react';
-import { questions, specialQuestions } from '../data/questions';
-import { dimensionMeta } from '../data/dimensions';
 import { shuffle } from '../logic/scoring';
 
-export default function TestScreen({ onSubmit, onBack }) {
+export default function TestScreen({ caseData, onSubmit, onBack }) {
+  const { questions, specialQuestions } = caseData;
   const [answers, setAnswers] = useState({});
 
   const shuffledQuestions = useMemo(() => {
@@ -14,7 +13,7 @@ export default function TestScreen({ onSubmit, onBack }) {
       specialQuestions[0],
       ...shuffled.slice(insertIndex)
     ];
-  }, []);
+  }, [questions, specialQuestions]);
 
   const visibleQuestions = useMemo(() => {
     const visible = [...shuffledQuestions];
@@ -23,7 +22,7 @@ export default function TestScreen({ onSubmit, onBack }) {
       visible.splice(gateIndex + 1, 0, specialQuestions[1]);
     }
     return visible;
-  }, [shuffledQuestions, answers]);
+  }, [shuffledQuestions, specialQuestions, answers]);
 
   const done = visibleQuestions.filter(q => answers[q.id] !== undefined).length;
   const total = visibleQuestions.length;

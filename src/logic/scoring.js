@@ -1,7 +1,3 @@
-import { dimensionMeta, dimensionOrder } from '../data/dimensions';
-import { questions, DRUNK_TRIGGER_QUESTION_ID } from '../data/questions';
-import { TYPE_LIBRARY, NORMAL_TYPES } from '../data/types';
-
 function sumToLevel(score) {
   if (score <= 3) return 'L';
   if (score === 4) return 'M';
@@ -16,7 +12,9 @@ function parsePattern(pattern) {
   return pattern.replace(/-/g, '').split('');
 }
 
-export function computeResult(answers) {
+export function computeResult(answers, caseData) {
+  const { dimensionMeta, dimensionOrder, questions, DRUNK_TRIGGER_QUESTION_ID, TYPE_LIBRARY, NORMAL_TYPES } = caseData;
+
   const rawScores = {};
   const levels = {};
   Object.keys(dimensionMeta).forEach(dim => { rawScores[dim] = 0; });
@@ -50,23 +48,27 @@ export function computeResult(answers) {
   const bestNormal = ranked[0];
   const drunkTriggered = answers[DRUNK_TRIGGER_QUESTION_ID] === 2;
 
+  // Find the fallback types by convention: DRUNK/DRUNK-NB and HHHH/NB404
+  const drunkKey = Object.keys(TYPE_LIBRARY).find(k => k.startsWith('DRUNK'));
+  const fallbackKey = Object.keys(TYPE_LIBRARY).find(k => !NORMAL_TYPES.some(t => t.code === k) && !k.startsWith('DRUNK'));
+
   let finalType;
   let modeKicker = '你的主类型';
   let badge = `匹配度 ${bestNormal.similarity}% · 精准命中 ${bestNormal.exact}/15 维`;
   let sub = '维度命中度较高，当前结果可视为你的第一人格画像。';
   let special = false;
 
-  if (drunkTriggered) {
-    finalType = TYPE_LIBRARY.DRUNK;
+  if (drunkTriggered && drunkKey) {
+    finalType = TYPE_LIBRARY[drunkKey];
     modeKicker = '隐藏人格已激活';
     badge = '匹配度 100% · 酒精异常因子已接管';
     sub = '乙醇亲和性过强，系统已直接跳过常规人格审判。';
     special = true;
-  } else if (bestNormal.similarity < 60) {
-    finalType = TYPE_LIBRARY.HHHH;
+  } else if (bestNormal.similarity < 60 && fallbackKey) {
+    finalType = TYPE_LIBRARY[fallbackKey];
     modeKicker = '系统强制兜底';
     badge = `标准人格库最高匹配仅 ${bestNormal.similarity}%`;
-    sub = '标准人格库对你的脑回路集体罢工了，于是系统把你强制分配给了 HHHH。';
+    sub = '标准人格库对你的脑回路集体罢工了，于是系统把你强制分配给了兜底人格。';
     special = true;
   } else {
     finalType = bestNormal;

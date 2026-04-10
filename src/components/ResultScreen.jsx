@@ -1,7 +1,5 @@
-import { dimensionMeta, dimensionOrder, DIM_EXPLANATIONS } from '../data/dimensions';
-import { TYPE_IMAGES } from '../data/types';
-
-export default function ResultScreen({ result, onRestart, onHome }) {
+export default function ResultScreen({ caseData, result, onRestart, onHome }) {
+  const { dimensionMeta, dimensionOrder, DIM_EXPLANATIONS, TYPE_IMAGES } = caseData;
   const type = result.finalType;
   const imageSrc = TYPE_IMAGES[type.code];
 
@@ -56,7 +54,7 @@ export default function ResultScreen({ result, onRestart, onHome }) {
             <h3>友情提示</h3>
             <p>
               {result.special
-                ? '本测试仅供娱乐。隐藏人格和傻乐兜底都属于作者故意埋的损招，请勿把它当成医学、心理学、相学、命理学或灵异学依据。'
+                ? '本测试仅供娱乐。隐藏人格和兜底人格都属于作者故意埋的损招，请勿把它当成医学、心理学、相学、命理学或灵异学依据。'
                 : '本测试仅供娱乐，别拿它当诊断、面试、相亲、分手、招魂、算命或人生判决书。你可以笑，但别太当真。'}
             </p>
           </div>

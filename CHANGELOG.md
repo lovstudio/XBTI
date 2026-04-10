@@ -1,3 +1,16 @@
+## 0.4.0
+
+- feat: 多模板架构，支持多套人格测试共存（cases/ 目录）
+- feat: 独立路由，每套测试有独立首页和测试流程（/sbti、/cbti）
+- feat: XBTI 总首页，展示所有可用测试 + xbti-creator 引导
+- feat: 新增 CBTI 猫咪人格测试（18 种猫咪人格）
+- feat: 每套测试支持切换其他风格（下拉选择）
+- feat: 人格 marquee 自动滚动展示
+- feat: 集成 lovinsp（点击 DOM 跳转源码）
+- refactor: scoring.js 参数化，不再硬编码数据源
+- refactor: TestScreen / ResultScreen 改为 props 驱动
+- refactor: 数据从 src/data/ 迁移到 cases/{id}/
+
 ## 0.3.0
 
 - refactor: 项目从 SBTI 泛化为 XBTI 人格测试引擎

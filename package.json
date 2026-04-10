@@ -1,7 +1,7 @@
 {
   "name": "xbti",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.4.0",
   "packageManager": "pnpm@9.12.3",
   "type": "module",
   "scripts": {
@@ -23,6 +23,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.4.0",
+    "lovinsp": "^1.6.0",
     "vite": "^8.0.4"
   }
 }
