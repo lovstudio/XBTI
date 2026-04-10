@@ -1,3 +1,12 @@
+## 0.4.1
+
+- feat: dynamic case loading from GitHub CDN
+- fix: correct xbti-creator skill install command
+- docs: improve README with logo, license, and updated architecture
+- docs: fix BTI variant links to xbti.lovstudio.ai/c/ paths
+- docs: remove NBTI references (temporarily taken down)
+- chore: add CBTI personality images to public/
+
 ## 0.4.0
 
 - feat: 多模板架构，支持多套人格测试共存（cases/ 目录）
