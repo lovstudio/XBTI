@@ -1,3 +1,8 @@
+## 0.5.0
+
+- feat: poster-style case cards with image mosaic grid on homepage
+- feat: hover animations and clickable card navigation
+
 ## 0.4.1
 
 - feat: dynamic case loading from GitHub CDN
