@@ -6,7 +6,7 @@ export default function HomePage({ cases, navigate }) {
         <p className="hero-sub">在财富自由之前，率先实现人格测试自由</p>
         <div className="hero-cta">
           <p>想创建你自己的人格测试？一行命令搞定：</p>
-          <pre className="hero-cmd">npx skills add lovstudio/skills --skill xbti-creator</pre>
+          <pre className="hero-cmd">npx skills add lovstudio/skills --skill lovstudio:xbti-creator</pre>
           <p className="hero-cta-hint">
             安装后输入 <code>/lovstudio:xbti-creator</code> 或直接说「帮我创建一个人格测试」，AI 自动生成完整测试并提交 PR。
           </p>
