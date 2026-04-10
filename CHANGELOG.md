@@ -1,3 +1,7 @@
+## 0.5.1
+
+- docs: add technical deep-dive article on XBTI engine architecture
+
 ## 0.5.0
 
 - feat: poster-style case cards with image mosaic grid on homepage
