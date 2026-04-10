@@ -1,25 +1,34 @@
+import { useMemo } from 'react';
 import useHashRoute from './useHashRoute';
+import useCases from './useCases';
 import HomePage from './components/HomePage';
 import TestFlow from './components/TestFlow';
-import { CASES } from '../cases/registry';
-
-const caseMap = Object.fromEntries(CASES.map(c => [c.meta.id, c]));
 
 export default function App() {
   const { path, navigate } = useHashRoute();
+  const { cases, error } = useCases();
 
-  // path: "/" | "/sbti" | "/sbti/test" | "/sbti/result"
+  const caseMap = useMemo(
+    () => cases ? Object.fromEntries(cases.map(c => [c.meta.id, c])) : {},
+    [cases]
+  );
+
+  // path: "/" | "/c/sbti" | "/c/sbti/test" | "/c/sbti/result"
   const segments = path.replace(/^\//, '').split('/');
-  const caseId = segments[0];
-  const subPage = segments[1] || '';
+  const isCase = segments[0] === 'c';
+  const caseId = isCase ? segments[1] : '';
+  const subPage = isCase ? (segments[2] || '') : '';
   const caseData = caseMap[caseId];
+
+  if (error) return <div className="shell"><p>加载失败，请刷新重试</p></div>;
+  if (!cases) return <div className="shell"><p>加载中…</p></div>;
 
   return (
     <div className="shell">
       {caseData ? (
-        <TestFlow key={caseId} caseData={caseData} subPage={subPage} navigate={navigate} />
+        <TestFlow key={caseId} caseData={caseData} allCases={cases} subPage={subPage} navigate={navigate} />
       ) : (
-        <HomePage navigate={navigate} />
+        <HomePage cases={cases} navigate={navigate} />
       )}
     </div>
   );

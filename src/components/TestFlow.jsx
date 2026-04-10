@@ -4,11 +4,11 @@ import TestScreen from './TestScreen';
 import ResultScreen from './ResultScreen';
 import { computeResult } from '../logic/scoring';
 
-export default function TestFlow({ caseData, subPage, navigate }) {
+export default function TestFlow({ caseData, allCases, subPage, navigate }) {
   const [result, setResult] = useState(null);
   const [testKey, setTestKey] = useState(0);
 
-  const caseBase = '/' + caseData.meta.id;
+  const caseBase = '/c/' + caseData.meta.id;
 
   const handleStart = useCallback(() => {
     setTestKey(k => k + 1);
@@ -39,5 +39,5 @@ export default function TestFlow({ caseData, subPage, navigate }) {
     return <ResultScreen caseData={caseData} result={result} onRestart={handleStart} onHome={handleHome} />;
   }
 
-  return <CaseIntro caseData={caseData} onStart={handleStart} navigate={navigate} />;
+  return <CaseIntro caseData={caseData} allCases={allCases} onStart={handleStart} navigate={navigate} />;
 }

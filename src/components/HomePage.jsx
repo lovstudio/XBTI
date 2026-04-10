@@ -1,6 +1,4 @@
-import { CASES } from '../../cases/registry';
-
-export default function HomePage({ navigate }) {
+export default function HomePage({ cases, navigate }) {
   return (
     <section className="screen active">
       <div className="hero card hero-minimal">
@@ -16,7 +14,7 @@ export default function HomePage({ navigate }) {
       </div>
 
       <div className="case-list">
-        {CASES.map(c => {
+        {cases.map(c => {
           const allTypes = Object.values(c.TYPE_LIBRARY);
           return (
             <div className="case-card card" key={c.meta.id}>
@@ -27,7 +25,7 @@ export default function HomePage({ navigate }) {
                 </div>
                 <button
                   className="btn-primary"
-                  onClick={() => navigate('/' + c.meta.id)}
+                  onClick={() => navigate('/c/' + c.meta.id)}
                 >
                   开始测试
                 </button>

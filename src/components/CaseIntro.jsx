@@ -1,6 +1,4 @@
-import { CASES } from '../../cases/registry';
-
-export default function CaseIntro({ caseData, onStart, navigate }) {
+export default function CaseIntro({ caseData, allCases, onStart, navigate }) {
   const { meta, TYPE_LIBRARY, TYPE_IMAGES } = caseData;
   const allTypes = Object.values(TYPE_LIBRARY);
 
@@ -14,10 +12,10 @@ export default function CaseIntro({ caseData, onStart, navigate }) {
           <select
             className="case-select"
             value=""
-            onChange={(e) => { if (e.target.value) navigate('/' + e.target.value); }}
+            onChange={(e) => { if (e.target.value) navigate('/c/' + e.target.value); }}
           >
             <option value="" disabled>切换风格</option>
-            {CASES.filter(c => c.meta.id !== meta.id).map(c => (
+            {allCases.filter(c => c.meta.id !== meta.id).map(c => (
               <option key={c.meta.id} value={c.meta.id}>
                 {c.meta.name} — {c.meta.desc}
               </option>
